@@ -1,0 +1,109 @@
+﻿<!-- THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
+ ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+
+ Copyright (c) Microsoft Corporation. All rights reserved -->
+
+<common:LayoutAwarePage 
+    x:Name="pageRoot"
+    x:Class="ListViewInteraction.MainPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListViewInteraction"
+    xmlns:common="using:ListViewInteraction.Common"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+	mc:Ignorable="d"
+	d:DesignHeight="768" d:DesignWidth="1366">
+	
+	<Page.Resources>
+		<Style x:Key="BaseStatusStyle" TargetType="TextBlock">
+			<Setter Property="FontFamily" Value="Segoe UI Semilight"/>
+			<Setter Property="FontSize" Value="14.667"/>
+			<Setter Property="Margin" Value="0,0,0,5"/>
+		</Style>
+		<Style x:Key="StatusStyle" BasedOn="{StaticResource BaseStatusStyle}" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="Green"/>
+		</Style>
+		<Style x:Key="ErrorStyle" BasedOn="{StaticResource BaseStatusStyle}" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="Blue"/>
+		</Style>
+
+    </Page.Resources>
+	<Grid x:Name="LayoutRoot" Background="#FF3B454F">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="170"/>
+        </Grid.ColumnDefinitions>
+        <!--App Orientation States-->
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="OrientationStates">
+                <VisualState x:Name="FullScreenLandscape"/>
+                <VisualState x:Name="Filled"/>
+                <VisualState x:Name="Snapped">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="buttons" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+        <StackPanel VerticalAlignment="Center" Orientation="Vertical" Grid.Column="1">
+            <UI:AdControl 
+            ApplicationId="9e9400c5-d9da-457b-be1b-61d95e219000" 
+            AdUnitId="10066206" 
+            Width="160"
+            Height="600" 
+            Margin="0,0,0,0" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center"/>
+
+        </StackPanel >
+        <Grid x:Name="ContentRoot" Margin="50,20,20,20">
+            <Grid.RowDefinitions>
+				<RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="titleimage" Grid.Column="0" Source="Assets/TitleLogo.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                <TextBlock x:Name="copy1" Grid.Column="1" Text="" Style="{StaticResource TitleTextStyle}" Foreground="#F7FF5B" Margin="10" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+                    <GridView x:Name="ItemGridView" Grid.Column="1"  BorderBrush="White" BorderThickness="0" Margin="0,0,40,0"
+                        ItemTemplate="{StaticResource StoreFrontTileTemplate}"  
+                        ItemsPanel="{StaticResource StoreFrontGridItemsPanelTemplate}" 
+                        VerticalAlignment="Stretch"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                        SelectionMode="Multiple" 
+                        SelectionChanged="ItemGridView_SelectionChanged_1"
+                        ItemContainerStyle="{StaticResource GridViewItemStyle1}"/>
+                    <StackPanel x:Name="buttons" Grid.Row="1" Orientation="Horizontal" >
+                        <Button x:Name="chzip" Content="Choose Zip File" Click="chooseFile" Margin="20" Width="150" Height="40" Style="{StaticResource CustomButtonStyle}"/>
+                        <Button x:Name="exall" Content="Extract All" Click="ExtractAll_Click_1" Margin="20" Width="150" Height="40" Style="{StaticResource CustomButtonStyle}" IsEnabled="False"/>
+                        <Button x:Name="exsel" Content="Extract Selection" Click="Selection_Click_1" Margin="20" Width="150" Height="40" Style="{StaticResource CustomButtonStyle}" IsEnabled="False"/>
+                        <Button x:Name="clsel" Content="Clear Selection" Click="ClearSel_Click_1" Margin="20" Width="150" Height="40" Style="{StaticResource CustomButtonStyle}" IsEnabled="False"/>
+                        <Button x:Name="clcon" Content="Clear Content" Click="Clear_Click_1" Margin="20" Width="150" Height="40" Style="{StaticResource CustomButtonStyle}" IsEnabled="False"/>
+                    </StackPanel>
+                </Grid>
+
+                <ProgressRing Grid.Column="0" x:Name="ProgressRing1" Width="50" Height="50" IsActive="{Binding IsChecked, ElementName=ActiveCB}" Foreground="#F7FF5B"/>
+            </Grid>
+		</Grid>
+	</Grid>
+</common:LayoutAwarePage>

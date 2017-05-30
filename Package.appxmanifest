@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="8410Psi-Apps.ZipX" Publisher="CN=3D1AAEA6-7800-4BD9-8B7C-41FD69DE6173" Version="1.1.0.3" />
+  <Properties>
+    <DisplayName>ZipX</DisplayName>
+    <PublisherDisplayName>Psi-Apps</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>ListView Interaction C# sample</Description>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="ListViewInteraction.App" Executable="$targetnametoken$.exe" EntryPoint="ListViewInteraction.App">
+      <m2:VisualElements DisplayName="ZipX" Description="Zip X is a zip file extracting tool." BackgroundColor="#3B454F" ForegroundText="light" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png">
+        <m2:DefaultTile Wide310x150Logo="Assets\WideLogo.png">
+        </m2:DefaultTile>
+        <m2:InitialRotationPreference>
+          <m2:Rotation Preference="landscape" />
+          <m2:Rotation Preference="landscapeFlipped" />
+        </m2:InitialRotationPreference>
+        <m2:SplashScreen BackgroundColor="#3B454F" Image="Assets\SplashScreen.png" />
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
